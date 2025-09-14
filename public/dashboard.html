@@ -1,0 +1,184 @@
+<!-- public/dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AeroSky - Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <nav class="sidebar">
+            <div class="logo">
+                <h2>AeroSky</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#dashboard" class="nav-link active" onclick="showSection('dashboard')">Dashboard</a></li>
+                <li><a href="#practice" class="nav-link" onclick="showSection('practice')">Practice</a></li>
+                <li><a href="#test" class="nav-link" onclick="showSection('test')">Take Test</a></li>
+                <li><a href="#analytics" class="nav-link" onclick="showSection('analytics')">Analytics</a></li>
+                <li><a href="#" class="nav-link" onclick="logout()">Logout</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <header class="header">
+                <h1 id="pageTitle">Dashboard</h1>
+                <div class="user-info">
+                    <span id="userWelcome">Welcome, User!</span>
+                </div>
+            </header>
+
+            <!-- Dashboard Section -->
+            <section id="dashboard-section" class="content-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Tests Taken</h3>
+                        <div class="stat-number" id="totalTests">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Average Score</h3>
+                        <div class="stat-number" id="averageScore">0%</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Best Score</h3>
+                        <div class="stat-number" id="bestScore">0%</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Practice Time</h3>
+                        <div class="stat-number" id="practiceTime">0 min</div>
+                    </div>
+                </div>
+
+                <div class="recent-activity">
+                    <h3>Recent Test Results</h3>
+                    <div id="recentTests" class="test-results">
+                        <!-- Recent tests will be loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice Section -->
+            <section id="practice-section" class="content-section hidden">
+                <div class="practice-options">
+                    <h3>Choose Subject to Practice</h3>
+                    <div class="subject-grid">
+                        <div class="subject-card" onclick="startPractice('math')">
+                            <h4>Mathematics</h4>
+                            <p>Practice math problems and calculations</p>
+                        </div>
+                        <div class="subject-card" onclick="startPractice('science')">
+                            <h4>Science</h4>
+                            <p>General science questions</p>
+                        </div>
+                        <div class="subject-card" onclick="startPractice('english')">
+                            <h4>English</h4>
+                            <p>Grammar, vocabulary, and comprehension</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="practiceQuiz" class="quiz-container hidden">
+                    <div class="quiz-header">
+                        <h3 id="practiceSubject">Practice Session</h3>
+                        <div class="quiz-timer">Time: <span id="practiceTimer">00:00</span></div>
+                    </div>
+                    <div id="practiceQuestion" class="question-container"></div>
+                    <div class="quiz-controls">
+                        <button id="nextPracticeBtn" class="btn-primary" onclick="nextPracticeQuestion()">Next</button>
+                        <button id="endPracticeBtn" class="btn-secondary" onclick="endPractice()">End Practice</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Test Section -->
+            <section id="test-section" class="content-section hidden">
+                <div class="test-options">
+                    <h3>Select Test Subject</h3>
+                    <div class="subject-grid">
+                        <div class="subject-card" onclick="startTest('math')">
+                            <h4>Mathematics Test</h4>
+                            <p>Timed test with 3 questions</p>
+                        </div>
+                        <div class="subject-card" onclick="startTest('science')">
+                            <h4>Science Test</h4>
+                            <p>Timed test with 3 questions</p>
+                        </div>
+                        <div class="subject-card" onclick="startTest('english')">
+                            <h4>English Test</h4>
+                            <p>Timed test with 3 questions</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="testQuiz" class="quiz-container hidden">
+                    <div class="quiz-header">
+                        <h3 id="testSubject">Test</h3>
+                        <div class="quiz-progress">
+                            Question <span id="currentQuestion">1</span> of <span id="totalQuestions">3</span>
+                        </div>
+                        <div class="quiz-timer">Time: <span id="testTimer">05:00</span></div>
+                    </div>
+                    <div id="testQuestion" class="question-container"></div>
+                    <div class="quiz-controls">
+                        <button id="nextTestBtn" class="btn-primary" onclick="nextTestQuestion()">Next</button>
+                        <button id="submitTestBtn" class="btn-primary hidden" onclick="submitTest()">Submit Test</button>
+                    </div>
+                </div>
+
+                <div id="testResult" class="result-container hidden">
+                    <h3>Test Results</h3>
+                    <div class="result-stats">
+                        <div class="result-item">
+                            <span>Score:</span>
+                            <span id="resultScore">0%</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Correct Answers:</span>
+                            <span id="resultCorrect">0/3</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Time Taken:</span>
+                            <span id="resultTime">00:00</span>
+                        </div>
+                    </div>
+                    <button class="btn-primary" onclick="backToTestSelection()">Take Another Test</button>
+                </div>
+            </section>
+
+            <!-- Analytics Section -->
+            <section id="analytics-section" class="content-section hidden">
+                <div class="analytics-container">
+                    <h3>Performance Analytics</h3>
+                    
+                    <div class="analytics-grid">
+                        <div class="analytics-card">
+                            <h4>Overall Performance</h4>
+                            <div class="performance-chart">
+                                <canvas id="performanceChart" width="300" height="200"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="analytics-card">
+                            <h4>Subject-wise Performance</h4>
+                            <div id="subjectStats" class="subject-stats">
+                                <!-- Subject stats will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="test-history">
+                        <h4>Test History</h4>
+                        <div id="testHistory" class="history-list">
+                            <!-- Test history will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>
