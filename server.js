@@ -84,9 +84,42 @@ const PracticeSession = mongoose.model('PracticeSession', practiceSessionSchema)
 // Sample questions
 const questionsBank = {
   math: [
-    { id: 1, question: "What is 15 + 27?", options: ["40", "42", "45", "47"], correctAnswer: "42" },
-    { id: 2, question: "What is the square root of 144?", options: ["10", "11", "12", "13"], correctAnswer: "12" },
-    { id: 3, question: "What is 8 × 9?", options: ["70", "71", "72", "73"], correctAnswer: "72" },
+   {
+    id: 1,
+    question: "Lowest layer of atmosphere is",
+    options: ["Troposphere", "Tropopause", "Stratosphere"],
+    correctAnswer: "Troposphere"
+  },
+  {
+    id: 2,
+    question: "Height of Tropopause at equator is",
+    options: ["10-12 km", "16-18 km", "12-14 km"],
+    correctAnswer: "16-18 km"
+  },
+  {
+    id: 3,
+    question: "Height of Tropopause at Poles is",
+    options: ["12-14 km", "12-13 km", "08-10 km"],
+    correctAnswer: "08-10 km"
+  },
+  {
+    id: 4,
+    question: "Higher the surface temperature, the tropopause would be",
+    options: ["Higher", "Lower", "Same"],
+    correctAnswer: "Higher"
+  },
+  {
+    id: 5,
+    question: "Height of tropopause",
+    options: ["Is constant", "Varies with altitude", "Varies with Latitude"],
+    correctAnswer: "Varies with Latitude"
+  },
+  {
+    id: 6,
+    question: "Above 8 km the lower temperatures are over",
+    options: ["Equator", "Mid Latitudes", "Poles"],
+    correctAnswer: "Equator"
+  },
   ],
   science: [
     { id: 1, question: "What is the chemical symbol for Gold?", options: ["Go", "Gd", "Au", "Ag"], correctAnswer: "Au" },
